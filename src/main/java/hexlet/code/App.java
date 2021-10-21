@@ -12,18 +12,20 @@ import java.util.concurrent.Callable;
 
 @Command(name = "gendiff", mixinStandardHelpOptions = true, version = "version 1.0",
         description = "Compares two configuration files and shows a difference.")
+
 public class App implements Callable<String> {
-  @Option(names = {"-f", "--format"}, description = "output format [default: stylish]")
-  private String format = "stylish";
-
   @Parameters(index = "0", description = "path to first file")
-  private File filepath1;
+  private String filepath1;
 
-  @Parameters(index = "0", description = "path to second file")
-  private File filepath2;
+  @Parameters(index = "1", description = "path to second file")
+  private String filepath2;
+
+  @Option(names = {"-f", "--format"}, description = "output format [default: stylish]", defaultValue = "stylish")
+  private String format;
 
   @Override
   public String call() throws Exception { // your business logic goes here...
+    System.out.println(Differ.generate(filepath1, filepath2));
     return Differ.generate(filepath1, filepath2);
   }
 
