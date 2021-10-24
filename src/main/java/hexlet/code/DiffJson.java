@@ -1,42 +1,47 @@
 package hexlet.code;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class DiffJson {
-    public static Map<String, String> getDiff(Map<String, Object> firstMapa, Map<String, Object> secondMapa) {
-        Map<String, String> result = new LinkedHashMap<>();
-        for (Map.Entry<String, Object> entry : secondMapa.entrySet()) {
-            if (!firstMapa.containsKey(entry.getKey())) {
-                result.put(entry.getKey(), "added");
+    public static List<Map<String, Object>> getDiff(Map<String, Object> firstMapa, Map<String, Object> secondMapa) {
+        List<Map<String, Object>> result = new ArrayList<>();
+        Set<String> keys = pullSetWithKeys(firstMapa, secondMapa);
+        for (String key : keys) {
+            Map<String, Object> temp = new LinkedHashMap<>();
+            if (!firstMapa.containsKey(key)) {
+                temp.putAll(pullMapWithValues(key, "added", secondMapa.get(key), secondMapa.get(key)));
             }
-            if (firstMapa.containsKey(entry.getKey()) && !firstMapa.containsValue(entry.getValue())) {
-                result.put(entry.getKey(), "changed");
+            if (!secondMapa.containsKey(key)) {
+                temp.putAll(pullMapWithValues(key, "deleted", firstMapa.get(key), firstMapa.get(key)));
             }
-            if (firstMapa.containsKey(entry.getKey()) && firstMapa.containsValue(entry.getValue())) {
-                result.put(entry.getKey(), "unchanged");
+            if (firstMapa.containsKey(key) && secondMapa.containsKey(key) && !secondMapa.get(key).equals(firstMapa.get(key))) {
+                temp.putAll(pullMapWithValues(key, "changed", firstMapa.get(key), secondMapa.get(key)));
             }
-        }
-        for (Map.Entry<String, Object> entry : firstMapa.entrySet()) {
-            if (!secondMapa.containsKey(entry.getKey())) {
-                result.put(entry.getKey(), "deleted");
+            if (firstMapa.containsKey(key) && secondMapa.containsKey(key) && firstMapa.get(key).equals(secondMapa.get(key))) {
+                temp.putAll(pullMapWithValues(key, "unchanged", firstMapa.get(key), secondMapa.get(key)));
             }
+            result.add(temp);
         }
         return result;
 }
 
-     public static String diffBetweenJsonFiles(Map<String, Object> firstMapa, Map<String, Object> secondMapa) {
-        Map<String, String> diff = getDiff(firstMapa, secondMapa);
-        String result = "";
+    private static Map<String, Object> pullMapWithValues(String key, String status, Object oldValue, Object newValue) {
+        Map<String, Object> pulledMap = new LinkedHashMap<>();
+        pulledMap.put("key", key);
+        pulledMap.put("status", status);
+        pulledMap.put("oldValue", oldValue);
+        pulledMap.put("newValue", newValue);
+        return pulledMap;
+    }
 
-        for(Map.Entry<String, String> entry : diff.entrySet()) {
-            if(entry.getValue().equals("deleted")) {
-                //triple  loop
-            }
-        }
+    private static Set<String> pullSetWithKeys(Map<String, Object> firstFile, Map<String, Object> secondFile) {
+        Set<String> pulledKeys = new HashSet<>();
+        pulledKeys.addAll(firstFile.keySet());
+        pulledKeys.addAll(secondFile.keySet());
+        return pulledKeys;
+    }
 
-        return result;
-     }
 }

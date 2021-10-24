@@ -28,8 +28,8 @@ public class Differ {
         Map<String, Object> mapa1 = Parser.parse(readedFile1);
         Map<String, Object> mapa2 = Parser.parse(readedFile2);
         //
-        System.out.println(DiffJson.diffBetweenJsonFiles(mapa1, mapa2));
-        return new String(); //возвращает результат работы метода другого класса, который сравнивает файлы (принимает в аргах - мапы).
+        List<Map<String, Object>> result = DiffJson.getDiff(mapa1, mapa2); //возвращает результат работы метода другого класса, который сравнивает файлы (принимает в аргах - мапы).
+        return Stylish.buildString(result);
     }
 
     private static String readFile(String filepath) throws IOException {
