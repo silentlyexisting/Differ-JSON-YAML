@@ -39,14 +39,9 @@ public class Stylish {
     }
 
     private static String buildString(Map<String, Object> pulledMapWithValues) {
-//        StringBuilder sb = new StringBuilder();
-//        for (Map.Entry<String, Object> entry : pulledMapWithValues.entrySet()) {
-//            sb.append(entry.getKey() + entry.getValue());
-//        }
-//        return sb.toString();
         return pulledMapWithValues.keySet().stream()
-                .sorted(Comparator.comparing((String key) -> key.charAt(4)))
-                .map(value -> value + pulledMapWithValues.get(value))
+                .sorted(Comparator.comparing(key -> key.charAt(4))) // сравнваем по ключу скипая "  + ", "  - " и "    ".
+                .map(value -> value + pulledMapWithValues.get(value)) // добавляем к ключу значение.
                 .collect(Collectors.joining(""));
     }
 
