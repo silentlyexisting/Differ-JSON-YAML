@@ -17,10 +17,10 @@ public class DiffJson {
             if (!secondMapa.containsKey(key)) {
                 temp.putAll(pullMapWithValues(key, "deleted", firstMapa.get(key), firstMapa.get(key)));
             }
-            if (firstMapa.containsKey(key) && secondMapa.containsKey(key) && !secondMapa.get(key).equals(firstMapa.get(key))) {
+            if (firstMapa.containsKey(key) && secondMapa.containsKey(key) && !Objects.equals(secondMapa.get(key), firstMapa.get(key))) {
                 temp.putAll(pullMapWithValues(key, "changed", firstMapa.get(key), secondMapa.get(key)));
             }
-            if (firstMapa.containsKey(key) && secondMapa.containsKey(key) && firstMapa.get(key).equals(secondMapa.get(key))) {
+            if (firstMapa.containsKey(key) && secondMapa.containsKey(key) && Objects.equals(firstMapa.get(key), secondMapa.get(key))) {
                 temp.putAll(pullMapWithValues(key, "unchanged", firstMapa.get(key), secondMapa.get(key)));
             }
             result.add(temp);
