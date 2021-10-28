@@ -1,9 +1,6 @@
 package hexlet.code;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class DiffJson {
     public static List<Map<String, Object>> getDiff(Map<String, Object> firstMapa, Map<String, Object> secondMapa) {
@@ -43,5 +40,4 @@ public class DiffJson {
         pulledKeys.addAll(secondFile.keySet());
         return pulledKeys;
     }
-
 }

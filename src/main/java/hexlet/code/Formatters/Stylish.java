@@ -9,7 +9,6 @@ public class Stylish {
         Map<String, Object> temp = unpackList(pulledMapWithValues);
         sb.append("{\n").append(buildString(temp)).append("}");
         return sb.toString();
-
     }
 
     private static Map<String, Object> unpackList(List<Map<String, Object>> pulledMapWithValues) {
