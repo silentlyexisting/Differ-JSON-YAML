@@ -31,7 +31,7 @@ public class DiffJson {
             result.add(temp);
         }
         return result;
-}
+    }
 
     private static Map<String, Object> pullMapWithValues(String key, String status, Object oldValue, Object newValue) {
         Map<String, Object> pulledMap = new LinkedHashMap<>();
