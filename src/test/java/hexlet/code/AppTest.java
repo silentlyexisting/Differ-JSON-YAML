@@ -17,7 +17,9 @@ class AppTest {
     private final Path path3 = Paths.get("src/test/resources/plainExpected");
     private final String file3 = Files.readString(path3);
 
-    AppTest() throws IOException {}
+    AppTest() throws IOException {
+
+    }
 
     @Test
     void testJson() throws Exception {
