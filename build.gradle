@@ -37,6 +37,11 @@ test {
 	useJUnitPlatform()
 }
 
+tasks.named('test') {
+	useJUnitPlatform()
+	finalizedBy jacocoTestReport
+}
+
 jacocoTestReport {
 	dependsOn test
  	reports {
@@ -46,4 +51,8 @@ jacocoTestReport {
 
 jacoco {
 	toolVersion = "0.8.7"
+}
+
+checkstyle {
+  toolVersion '9.0'
 }

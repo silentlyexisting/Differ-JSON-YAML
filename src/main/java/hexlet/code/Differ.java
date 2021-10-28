@@ -2,6 +2,7 @@ package hexlet.code;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import hexlet.code.Formatters.Plain;
 import hexlet.code.Formatters.Stylish;
 import picocli.CommandLine;
 
@@ -30,7 +31,8 @@ public class Differ {
         Map<String, Object> mapa2 = Parser.parse(readedFile2, filepath1);
         //
         List<Map<String, Object>> result = DiffJson.getDiff(mapa1, mapa2); //возвращает результат работы метода другого класса, который сравнивает файлы (принимает в аргах - мапы).
-        return Stylish.buildString(result);
+//        return Stylish.buildString(result);
+        return Plain.buildResult(result);
 
     }
 
