@@ -1,9 +1,16 @@
 package hexlet.code.Formatters;
 
-import java.util.*;
+
 import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.Objects;
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class Plain {
+    private static final int SPACE = 10;
     public static String buildResult(List<Map<String, Object>> pulledMapWithValues) {
         Map<String, Object> temp = unpackList(pulledMapWithValues);
         String result = buildString(temp);
@@ -48,7 +55,7 @@ public class Plain {
 
     private static String buildString(Map<String, Object> pulledMapWithValues) {
         return  pulledMapWithValues.keySet().stream()
-                .sorted(Comparator.comparing((String key) -> key.substring(10))
+                .sorted(Comparator.comparing((String key) -> key.substring(SPACE))
                         .thenComparing(key -> "Property ".indexOf(key.charAt(2))))
                 .map(value -> value + pulledMapWithValues.get(value))
                 .collect(Collectors.joining(""));

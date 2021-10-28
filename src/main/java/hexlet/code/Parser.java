@@ -2,7 +2,9 @@ package hexlet.code;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory;
-import java.util.*;
+import java.util.Map;
+import java.util.HashMap;
+
 
 public class Parser {
     public static Map<String, Object> parse(String readedFile, String format) throws Exception {

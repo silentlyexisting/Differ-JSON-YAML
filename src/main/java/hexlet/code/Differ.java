@@ -22,7 +22,8 @@ public class Differ {
         Map<String, Object> mapa1 = Parser.parse(readedFile1, filepath1);
         Map<String, Object> mapa2 = Parser.parse(readedFile2, filepath1);
         //
-        List<Map<String, Object>> result = DiffJson.getDiff(mapa1, mapa2); //возвращает результат работы метода другого класса, который сравнивает файлы (принимает в аргах - мапы).
+        //возвращает результат работы метода другого класса, который сравнивает файлы (принимает в аргах - мапы).
+        List<Map<String, Object>> result = DiffJson.getDiff(mapa1, mapa2);
 //        return Stylish.buildString(result);
         return Plain.buildResult(result);
     }

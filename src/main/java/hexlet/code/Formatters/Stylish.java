@@ -1,9 +1,14 @@
 package hexlet.code.Formatters;
 
-import java.util.*;
+
 import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.Comparator;
 
 public class Stylish {
+    private static final int SPACE = 4;
     public static String buildString(List<Map<String, Object>> pulledMapWithValues) {
         StringBuilder sb = new StringBuilder();
         Map<String, Object> temp = unpackList(pulledMapWithValues);
@@ -39,7 +44,7 @@ public class Stylish {
 
     private static String buildString(Map<String, Object> pulledMapWithValues) {
         return  pulledMapWithValues.keySet().stream()
-                .sorted(Comparator.comparing((String key) -> key.substring(4))
+                .sorted(Comparator.comparing((String key) -> key.substring(SPACE))
                         .thenComparing(key -> " -+".indexOf(key.charAt(2))))
                 .map(value -> value + pulledMapWithValues.get(value))
                 .collect(Collectors.joining(""));

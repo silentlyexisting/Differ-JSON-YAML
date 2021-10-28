@@ -1,6 +1,12 @@
 package hexlet.code;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.LinkedHashMap;
+import java.util.Set;
+import java.util.HashSet;
+import java.util.Objects;
 
 public class DiffJson {
     public static List<Map<String, Object>> getDiff(Map<String, Object> firstMapa, Map<String, Object> secondMapa) {
@@ -14,10 +20,12 @@ public class DiffJson {
             if (!secondMapa.containsKey(key)) {
                 temp.putAll(pullMapWithValues(key, "deleted", firstMapa.get(key), firstMapa.get(key)));
             }
-            if (firstMapa.containsKey(key) && secondMapa.containsKey(key) && !Objects.equals(secondMapa.get(key), firstMapa.get(key))) {
+            if (firstMapa.containsKey(key) && secondMapa.containsKey(key)
+                    && !Objects.equals(secondMapa.get(key), firstMapa.get(key))) {
                 temp.putAll(pullMapWithValues(key, "changed", firstMapa.get(key), secondMapa.get(key)));
             }
-            if (firstMapa.containsKey(key) && secondMapa.containsKey(key) && Objects.equals(firstMapa.get(key), secondMapa.get(key))) {
+            if (firstMapa.containsKey(key) && secondMapa.containsKey(key)
+                    && Objects.equals(firstMapa.get(key), secondMapa.get(key))) {
                 temp.putAll(pullMapWithValues(key, "unchanged", firstMapa.get(key), secondMapa.get(key)));
             }
             result.add(temp);
