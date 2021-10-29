@@ -11,7 +11,7 @@ lint:
 	./gradlew checkstyleMain checkstyleTest
 	
 build:
-	./gradlew build
+	./gradlew clean build
 	
 .PHONY: build
 
