@@ -3,7 +3,6 @@ package hexlet.code;
 import hexlet.code.Formatters.Plain;
 import hexlet.code.Formatters.Stylish;
 
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
