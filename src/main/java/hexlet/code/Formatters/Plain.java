@@ -44,7 +44,7 @@ public class Plain {
         if (Objects.equals(pulledMapWithValues.get("status"), "deleted")) {
             result.put("Property '" + pulledMapWithValues.get("key"), "' was removed\n");
         }
-        if (pulledMapWithValues.get("status").equals("changed")) {
+        if (Objects.equals(pulledMapWithValues.get("status"), "changed")) {
             result.put("Property '" + pulledMapWithValues.get("key"), "' was updated. From "
                     + changeValue(pulledMapWithValues.get("oldValue"))
                     + " to " + changeValue(pulledMapWithValues.get("newValue"))

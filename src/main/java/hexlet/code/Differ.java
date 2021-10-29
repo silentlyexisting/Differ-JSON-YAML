@@ -23,12 +23,13 @@ public class Differ {
         Map<String, Object> mapa2 = Parser.parse(readedFile2, filepath1);
         //
         //возвращает результат работы метода другого класса, который сравнивает файлы (принимает в аргах - мапы).
-        List<Map<String, Object>> result = DiffJson.getDiff(mapa1, mapa2);
+        List<Map<String, Object>> diff = DiffJson.getDiff(mapa1, mapa2);
 //        return Stylish.buildString(result);
-        return Plain.buildResult(result);
+//        return Plain.buildResult(result);
+        return Formatter.chooseFormat(format, diff);
     }
 
-    private static String readFile(String filepath) throws IOException {
+    public static String readFile(String filepath) throws IOException {
         //читаем переданные директории/файлы из консоли
         Path path = Paths.get(filepath).toAbsolutePath().normalize();
         return Files.readString(path);
