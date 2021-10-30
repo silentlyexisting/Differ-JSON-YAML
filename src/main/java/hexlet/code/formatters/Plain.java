@@ -1,4 +1,4 @@
-package hexlet.code.Formatters;
+package hexlet.code.formatters;
 
 
 import java.util.stream.Collectors;
@@ -11,9 +11,9 @@ import java.util.Comparator;
 
 public class Plain {
     private static final int SPACE = 10;
-    public static String buildResult(List<Map<String, Object>> pulledMapWithValues) {
-        Map<String, Object> temp = unpackList(pulledMapWithValues);
-        String result = buildString(temp);
+    public static String genPlainFormat(List<Map<String, Object>> pulledValues) {
+        Map<String, Object> tempMap = unpackList(pulledValues);
+        String result = buildAnswer(tempMap);
         return result.substring(0, result.length() - 1);
     }
 
@@ -53,7 +53,7 @@ public class Plain {
         return result;
     }
 
-    private static String buildString(Map<String, Object> pulledMapWithValues) {
+    private static String buildAnswer(Map<String, Object> pulledMapWithValues) {
         return  pulledMapWithValues.keySet().stream()
                 .sorted(Comparator.comparing((String key) -> key.substring(SPACE))
                         .thenComparing(key -> "Property ".indexOf(key.charAt(2))))

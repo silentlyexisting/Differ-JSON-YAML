@@ -1,4 +1,4 @@
-package hexlet.code.Formatters;
+package hexlet.code.formatters;
 
 
 import java.util.stream.Collectors;
@@ -9,19 +9,19 @@ import java.util.Comparator;
 
 public class Stylish {
     private static final int SPACE = 4;
-    public static String buildString(List<Map<String, Object>> pulledMapWithValues) {
-        StringBuilder sb = new StringBuilder();
-        Map<String, Object> temp = unpackList(pulledMapWithValues);
-        sb.append("{\n").append(buildString(temp)).append("}");
-        return sb.toString();
+    public static String genStylishFormat(List<Map<String, Object>> pulledValues) {
+        StringBuilder stringBuilder = new StringBuilder();
+        Map<String, Object> tempMap = unpackList(pulledValues);
+        stringBuilder.append("{\n").append(buildAnswer(tempMap)).append("}");
+        return stringBuilder.toString();
     }
 
-    private static Map<String, Object> unpackList(List<Map<String, Object>> pulledMapWithValues) {
-        Map<String, Object> result = new LinkedHashMap<>();
-        for (Map<String, Object> map : pulledMapWithValues) {
-            result.putAll(changeStatus(map));
+    private static Map<String, Object> unpackList(List<Map<String, Object>> pulledValues) {
+        Map<String, Object> unpackedValues = new LinkedHashMap<>();
+        for (Map<String, Object> map : pulledValues) {
+            unpackedValues.putAll(changeStatus(map));
         }
-        return result;
+        return unpackedValues;
     }
 
     private static Map<String, Object> changeStatus(Map<String, Object> pulledMapWithValues) {
@@ -42,7 +42,7 @@ public class Stylish {
         return result;
     }
 
-    private static String buildString(Map<String, Object> pulledMapWithValues) {
+    private static String buildAnswer(Map<String, Object> pulledMapWithValues) {
         return  pulledMapWithValues.keySet().stream()
                 .sorted(Comparator.comparing((String key) -> key.substring(SPACE))
                         .thenComparing(key -> " -+".indexOf(key.charAt(2))))
