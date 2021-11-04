@@ -11,21 +11,20 @@ import java.util.Comparator;
 
 public class Plain {
     private static final int SPACE = 10;
-    public static String genPlainFormat(List<Map<String, Object>> pulledValues) {
-        Map<String, Object> tempMap = unpackList(pulledValues);
-        String result = buildAnswer(tempMap);
-        return result.substring(0, result.length() - 1);
+    public static String genPlainFormat(List<Map<String, Object>> diff) {
+        Map<String, Object> tempMap = unpackList(diff);
+        return buildAnswer(tempMap);
     }
 
-    private static Map<String, Object> unpackList(List<Map<String, Object>> pulledValues) {
+    private static Map<String, Object> unpackList(List<Map<String, Object>> diff) {
         Map<String, Object> result = new LinkedHashMap<>();
-        for (Map<String, Object> map : pulledValues) {
+        for (Map<String, Object> map : diff) {
             result.putAll(changeStatus(map));
         }
         return result;
     }
 
-    private static Object changeValue(Object value) {
+    private static Object stringify(Object value) {
         if (value instanceof  Arrays || value instanceof List || value instanceof Map) {
             return "[complex value]";
         }
@@ -35,20 +34,19 @@ public class Plain {
         return value;
     }
 
-    private static Map<String, Object> changeStatus(Map<String, Object> pulledMapWithValues) {
+    private static Map<String, Object> changeStatus(Map<String, Object> diff) {
         Map<String, Object> result = new LinkedHashMap<>();
-        if (Objects.equals(pulledMapWithValues.get("status"), "added")) {
-            result.put("Property '" + pulledMapWithValues.get("key"), "' was added with value: "
-                    + changeValue(pulledMapWithValues.get("newValue")) + "\n");
+        if (Objects.equals(diff.get("status"), "added")) {
+            result.put("Property '" + diff.get("key"), "' was added with value: "
+                    + stringify(diff.get("newValue")));
         }
-        if (Objects.equals(pulledMapWithValues.get("status"), "deleted")) {
-            result.put("Property '" + pulledMapWithValues.get("key"), "' was removed\n");
+        if (Objects.equals(diff.get("status"), "deleted")) {
+            result.put("Property '" + diff.get("key"), "' was removed");
         }
-        if (Objects.equals(pulledMapWithValues.get("status"), "changed")) {
-            result.put("Property '" + pulledMapWithValues.get("key"), "' was updated. From "
-                    + changeValue(pulledMapWithValues.get("oldValue"))
-                    + " to " + changeValue(pulledMapWithValues.get("newValue"))
-                    + "\n");
+        if (Objects.equals(diff.get("status"), "changed")) {
+            result.put("Property '" + diff.get("key"), "' was updated. From "
+                    + stringify(diff.get("oldValue"))
+                    + " to " + stringify(diff.get("newValue")));
         }
         return result;
     }
@@ -58,6 +56,6 @@ public class Plain {
                 .sorted(Comparator.comparing((String key) -> key.substring(SPACE))
                         .thenComparing(key -> "Property ".indexOf(key.charAt(2))))
                 .map(value -> value + pulledMapWithValues.get(value))
-                .collect(Collectors.joining(""));
+                .collect(Collectors.joining("\n"));
     }
 }

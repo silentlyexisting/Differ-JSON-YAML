@@ -20,7 +20,7 @@ public class Differ {
         Map<String, Object> secondMap = Parser.parse(secondReadedFile, filepath1);
         List<Map<String, Object>> diff = Diff.genDiff(firstMap, secondMap);
         // genDiff возвращает результат работы метода другого класса, который сравнивает файлы
-        return Formatter.chooseFormat(format, diff);
+        return Formatter.format(format, diff);
     }
 
     public static String readFile(String filepath) throws IOException {
