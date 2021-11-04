@@ -15,25 +15,25 @@ public class Diff {
         for (String key : keys) {
             Map<String, Object> temp = new LinkedHashMap<>();
             if (!firstMap.containsKey(key)) {
-                temp.putAll(pullMapWithValues(key, "added", secondMap.get(key), secondMap.get(key)));
+                temp.putAll(createDiffNode(key, "added", secondMap.get(key), secondMap.get(key)));
             }
             if (!secondMap.containsKey(key)) {
-                temp.putAll(pullMapWithValues(key, "deleted", firstMap.get(key), firstMap.get(key)));
+                temp.putAll(createDiffNode(key, "deleted", firstMap.get(key), firstMap.get(key)));
             }
             if (firstMap.containsKey(key) && secondMap.containsKey(key)
                     && !Objects.equals(secondMap.get(key), firstMap.get(key))) {
-                temp.putAll(pullMapWithValues(key, "changed", firstMap.get(key), secondMap.get(key)));
+                temp.putAll(createDiffNode(key, "changed", firstMap.get(key), secondMap.get(key)));
             }
             if (firstMap.containsKey(key) && secondMap.containsKey(key)
                     && Objects.equals(firstMap.get(key), secondMap.get(key))) {
-                temp.putAll(pullMapWithValues(key, "unchanged", firstMap.get(key), secondMap.get(key)));
+                temp.putAll(createDiffNode(key, "unchanged", firstMap.get(key), secondMap.get(key)));
             }
             diff.add(temp);
         }
         return diff;
     }
 
-    private static Map<String, Object> pullMapWithValues(String key, String status, Object oldValue, Object newValue) {
+    private static Map<String, Object> createDiffNode(String key, String status, Object oldValue, Object newValue) {
         Map<String, Object> pulledMap = new LinkedHashMap<>();
         pulledMap.put("key", key);
         pulledMap.put("status", status);
