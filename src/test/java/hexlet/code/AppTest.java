@@ -8,27 +8,26 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 class AppTest {
-    private final Path path =
-            Paths.get("src/test/resources/expected/stylishExpected").toAbsolutePath().normalize();
-    private final String stylishExpected = Files.readString(path);
+    private final String source = "src/test/resources/expected/";
 
-    private final Path path2 =
-            Paths.get("src/test/resources/expected/recursiveExpected").toAbsolutePath().normalize();
-    private final String recursiveExpected = Files.readString(path2);
+    private final Path flatJsonPath = getExpectedPath(source + "stylishExpected");
+    private final String stylishExpected = Files.readString(flatJsonPath);
 
-    private final Path path3 = Paths.get("src/test/resources/expected/plainExpected").toAbsolutePath().normalize();
-    private final String plainExpected = Files.readString(path3);
+    private final Path recursivePath = getExpectedPath(source + "recursiveExpected");
+    private final String recursiveExpected = Files.readString(recursivePath);
 
-    private final Path path4 =
-            Paths.get("src/test/resources/expected/jsonExpected.json").toAbsolutePath().normalize();
-    private final String jsonExpected = Files.readString(path4);
+    private final Path plainPath = getExpectedPath(source + "plainExpected");
+    private final String plainExpected = Files.readString(plainPath);
 
-    private final Path path5 =
-            Paths.get("src/test/resources/expected/jsonRecursiveExpected.json").toAbsolutePath().normalize();
-    private final String jsonRecursiveExpected = Files.readString(path5);
+    private final Path jsonPath = getExpectedPath(source + "jsonExpected.json");
+    private final String jsonExpected = Files.readString(jsonPath);
+
+    private final Path jsonRecursivePath = getExpectedPath(source + "jsonRecursiveExpected.json");
+    private final String jsonRecursiveExpected = Files.readString(jsonRecursivePath);
 
     AppTest() throws IOException {
     }
+
 
     @Test
     void testStylishJson() throws Exception {
@@ -82,6 +81,10 @@ class AppTest {
         String actual = Differ.generate(getFixturesPath(firstJson), getFixturesPath(secondJson), "json");
         String expected = jsonRecursiveExpected;
         Assertions.assertEquals(expected, actual);
+    }
+
+    private static Path getExpectedPath(String source) {
+        return Paths.get(source).toAbsolutePath().normalize();
     }
 
     private static String getFixturesPath(String fileName) {
