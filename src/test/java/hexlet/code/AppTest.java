@@ -8,19 +8,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 class AppTest {
-    private final Path path = Paths.get("src/test/resources/expected/stylishExpected").toAbsolutePath().normalize();
+    private final Path path =
+            Paths.get("src/test/resources/expected/stylishExpected").toAbsolutePath().normalize();
     private final String stylishExpected = Files.readString(path);
 
-    private final Path path2 = Paths.get("src/test/resources/expected/recursiveExpected").toAbsolutePath().normalize();
+    private final Path path2 =
+            Paths.get("src/test/resources/expected/recursiveExpected").toAbsolutePath().normalize();
     private final String recursiveExpected = Files.readString(path2);
 
     private final Path path3 = Paths.get("src/test/resources/expected/plainExpected").toAbsolutePath().normalize();
     private final String plainExpected = Files.readString(path3);
 
-    private final Path path4 = Paths.get("src/test/resources/expected/jsonExpected.json").toAbsolutePath().normalize();
+    private final Path path4 =
+            Paths.get("src/test/resources/expected/jsonExpected.json").toAbsolutePath().normalize();
     private final String jsonExpected = Files.readString(path4);
 
-    private final Path path5 = Paths.get("src/test/resources/expected/jsonRecursiveExpected.json").toAbsolutePath().normalize();
+    private final Path path5 =
+            Paths.get("src/test/resources/expected/jsonRecursiveExpected.json").toAbsolutePath().normalize();
     private final String jsonRecursiveExpected = Files.readString(path5);
 
     AppTest() throws IOException {

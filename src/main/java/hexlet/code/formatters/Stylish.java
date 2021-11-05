@@ -9,6 +9,9 @@ import java.util.Comparator;
 
 public class Stylish {
     private static final int SPACE = 4;
+    private static final String PLUS = "  + %s: ";
+    private static final String MINUS = "  - %s: ";
+    private static final String EMPTINESS = "    %s: ";
     public static String genStylishFormat(List<Map<String, Object>> diff) {
         Map<String, Object> statesToNode = unpack(diff);
         return buildAnswer(statesToNode);
@@ -25,17 +28,17 @@ public class Stylish {
     private static Map<String, Object> changeStatus(Map<String, Object> diff) {
         Map<String, Object> result = new LinkedHashMap<>();
         if (diff.get("status").equals("added")) {
-            result.put("  + " + diff.get("key") + ": ", diff.get("oldValue") + "\n");
+            result.put(String.format(PLUS, diff.get("key")), diff.get("oldValue"));
         }
         if (diff.get("status").equals("deleted")) {
-            result.put("  - " + diff.get("key") + ": ", diff.get("oldValue") + "\n");
+            result.put(String.format(MINUS, diff.get("key")), diff.get("oldValue"));
         }
         if (diff.get("status").equals("changed")) {
-            result.put("  - " + diff.get("key") + ": ", diff.get("oldValue") + "\n");
-            result.put("  + " + diff.get("key") + ": ", diff.get("newValue") + "\n");
+            result.put(String.format(MINUS, diff.get("key")), diff.get("oldValue"));
+            result.put(String.format(PLUS, diff.get("key")), diff.get("newValue"));
         }
         if (diff.get("status").equals("unchanged")) {
-            result.put("    " + diff.get("key") + ": ", diff.get("oldValue") + "\n");
+            result.put(String.format(EMPTINESS, diff.get("key")), diff.get("oldValue"));
         }
         return result;
     }
@@ -45,6 +48,6 @@ public class Stylish {
                 .sorted(Comparator.comparing((String key) -> key.substring(SPACE))
                         .thenComparing(key -> " -+".indexOf(key.charAt(2))))
                 .map(value -> value + diff.get(value))
-                .collect(Collectors.joining("", "{\n", "}"));
+                .collect(Collectors.joining("\n", "{\n", "\n}"));
     }
 }

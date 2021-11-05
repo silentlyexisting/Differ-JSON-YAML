@@ -9,15 +9,12 @@ import java.util.Map;
 
 public class Formatter {
     public static String format(String format, List<Map<String, Object>> diff) throws Exception {
-        if (format.equals("stylish")) {
-            return Stylish.genStylishFormat(diff);
+        switch (format) {
+            case "stylish" : return Stylish.genStylishFormat(diff);
+            case "plain" : return Plain.genPlainFormat(diff);
+            case "json" : return Json.buildJsonFormat(diff);
+            default:
+                throw new Exception("Invalid format");
         }
-        if (format.equals("plain")) {
-            return Plain.genPlainFormat(diff);
-        }
-        if (format.equals("json")) {
-            return Json.buildJsonFormat(diff);
-        }
-        return new String();
     }
 }

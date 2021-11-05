@@ -11,6 +11,10 @@ import java.util.Comparator;
 
 public class Plain {
     private static final int SPACE = 10;
+    private static final String PROPERTY = "Property '%s'";
+    private static final String ADDED =  " was added with value: %s";
+    private static final String REMOVED = " was removed";
+    private static final String CHANGED = " was updated. From %s to %s";
     public static String genPlainFormat(List<Map<String, Object>> diff) {
         Map<String, Object> tempMap = unpackList(diff);
         return buildAnswer(tempMap);
@@ -37,16 +41,14 @@ public class Plain {
     private static Map<String, Object> changeStatus(Map<String, Object> diff) {
         Map<String, Object> result = new LinkedHashMap<>();
         if (Objects.equals(diff.get("status"), "added")) {
-            result.put("Property '" + diff.get("key"), "' was added with value: "
-                    + stringify(diff.get("newValue")));
+            result.put(String.format(PROPERTY, diff.get("key")), String.format(ADDED, stringify(diff.get("newValue"))));
         }
         if (Objects.equals(diff.get("status"), "deleted")) {
-            result.put("Property '" + diff.get("key"), "' was removed");
+            result.put(String.format(PROPERTY, diff.get("key")), REMOVED);
         }
         if (Objects.equals(diff.get("status"), "changed")) {
-            result.put("Property '" + diff.get("key"), "' was updated. From "
-                    + stringify(diff.get("oldValue"))
-                    + " to " + stringify(diff.get("newValue")));
+            result.put(String.format(PROPERTY, diff.get("key")), String.format(CHANGED, stringify(diff.get("oldValue")),
+                    stringify(diff.get("newValue"))));
         }
         return result;
     }
