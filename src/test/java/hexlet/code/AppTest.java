@@ -8,21 +8,21 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 class AppTest {
-    private final String source = "src/test/resources/expected/";
+    private final String path = "src/test/resources/expected/";
 
-    private final Path flatJsonPath = getExpectedPath(source + "stylishExpected");
+    private final Path flatJsonPath = getExpectedPath(path + "stylishExpected");
     private final String stylishExpected = Files.readString(flatJsonPath);
 
-    private final Path recursivePath = getExpectedPath(source + "recursiveExpected");
+    private final Path recursivePath = getExpectedPath(path + "recursiveExpected");
     private final String recursiveExpected = Files.readString(recursivePath);
 
-    private final Path plainPath = getExpectedPath(source + "plainExpected");
+    private final Path plainPath = getExpectedPath(path + "plainExpected");
     private final String plainExpected = Files.readString(plainPath);
 
-    private final Path jsonPath = getExpectedPath(source + "jsonExpected.json");
+    private final Path jsonPath = getExpectedPath(path + "jsonExpected.json");
     private final String jsonExpected = Files.readString(jsonPath);
 
-    private final Path jsonRecursivePath = getExpectedPath(source + "jsonRecursiveExpected.json");
+    private final Path jsonRecursivePath = getExpectedPath(path + "jsonRecursiveExpected.json");
     private final String jsonRecursiveExpected = Files.readString(jsonRecursivePath);
 
     AppTest() throws IOException {
