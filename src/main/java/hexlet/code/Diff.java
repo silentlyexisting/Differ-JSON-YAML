@@ -33,12 +33,12 @@ public class Diff {
         return diff;
     }
 
-    private static Map<String, Object> createDiffNode(String key, String status, Object oldValue, Object newValue) {
+    private static Map<String, Object> createDiffNode(String key, String status, Object value1, Object value2) {
         Map<String, Object> node = new LinkedHashMap<>();
         node.put("key", key);
         node.put("status", status);
-        node.put("oldValue", oldValue);
-        node.put("newValue", newValue);
+        node.put("value1", value1);
+        node.put("value2", value2);
         return node;
     }
 

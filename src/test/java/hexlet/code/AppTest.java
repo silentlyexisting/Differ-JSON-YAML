@@ -8,26 +8,23 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 
 class AppTest {
-    private final String path = "src/test/resources/expected/";
+    private final Path flatJsonPath = Path.of(getFixturesPath("stylishExpected"));
+    private final String stylishExpected = readData(flatJsonPath);
 
-    private final Path flatJsonPath = getExpectedPath(path + "stylishExpected");
-    private final String stylishExpected = Files.readString(flatJsonPath);
+    private final Path recursivePath = Path.of(getFixturesPath("recursiveExpected"));
+    private final String recursiveExpected = readData(recursivePath);
 
-    private final Path recursivePath = getExpectedPath(path + "recursiveExpected");
-    private final String recursiveExpected = Files.readString(recursivePath);
+    private final Path plainPath = Path.of(getFixturesPath("plainExpected"));
+    private final String plainExpected = readData(plainPath);
 
-    private final Path plainPath = getExpectedPath(path + "plainExpected");
-    private final String plainExpected = Files.readString(plainPath);
+    private final Path jsonPath = Path.of(getFixturesPath("jsonExpected.json"));
+    private final String jsonExpected = readData(jsonPath);
 
-    private final Path jsonPath = getExpectedPath(path + "jsonExpected.json");
-    private final String jsonExpected = Files.readString(jsonPath);
-
-    private final Path jsonRecursivePath = getExpectedPath(path + "jsonRecursiveExpected.json");
-    private final String jsonRecursiveExpected = Files.readString(jsonRecursivePath);
+    private final Path jsonRecursivePath = Path.of(getFixturesPath("jsonRecursiveExpected.json"));
+    private final String jsonRecursiveExpected = readData(jsonRecursivePath);
 
     AppTest() throws IOException {
     }
-
 
     @Test
     void testStylishJson() throws Exception {
@@ -83,15 +80,15 @@ class AppTest {
         Assertions.assertEquals(expected, actual);
     }
 
-    private static Path getExpectedPath(String source) {
-        return Paths.get(source).toAbsolutePath().normalize();
-    }
-
     private static String getFixturesPath(String fileName) {
         return "src/test/resources/fixtures/" + fileName;
     }
 
     private static String getFileName(String fileName) {
         return fileName;
+    }
+
+    private static String readData(Path path) throws IOException {
+        return Files.readString(path);
     }
 }

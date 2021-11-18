@@ -41,14 +41,14 @@ public class Plain {
     private static Map<String, Object> changeStatus(Map<String, Object> diff) {
         Map<String, Object> result = new LinkedHashMap<>();
         if (Objects.equals(diff.get("status"), "added")) {
-            result.put(String.format(PROPERTY, diff.get("key")), String.format(ADDED, stringify(diff.get("newValue"))));
+            result.put(String.format(PROPERTY, diff.get("key")), String.format(ADDED, stringify(diff.get("value2"))));
         }
         if (Objects.equals(diff.get("status"), "deleted")) {
             result.put(String.format(PROPERTY, diff.get("key")), REMOVED);
         }
         if (Objects.equals(diff.get("status"), "changed")) {
-            result.put(String.format(PROPERTY, diff.get("key")), String.format(CHANGED, stringify(diff.get("oldValue")),
-                    stringify(diff.get("newValue"))));
+            result.put(String.format(PROPERTY, diff.get("key")), String.format(CHANGED, stringify(diff.get("value1")),
+                    stringify(diff.get("value2"))));
         }
         return result;
     }

@@ -28,17 +28,17 @@ public class Stylish {
     private static Map<String, Object> changeStatus(Map<String, Object> diff) {
         Map<String, Object> result = new LinkedHashMap<>();
         if (diff.get("status").equals("added")) {
-            result.put(String.format(PLUS, diff.get("key")), diff.get("oldValue"));
+            result.put(String.format(PLUS, diff.get("key")), diff.get("value1"));
         }
         if (diff.get("status").equals("deleted")) {
-            result.put(String.format(MINUS, diff.get("key")), diff.get("oldValue"));
+            result.put(String.format(MINUS, diff.get("key")), diff.get("value1"));
         }
         if (diff.get("status").equals("changed")) {
-            result.put(String.format(MINUS, diff.get("key")), diff.get("oldValue"));
-            result.put(String.format(PLUS, diff.get("key")), diff.get("newValue"));
+            result.put(String.format(MINUS, diff.get("key")), diff.get("value1"));
+            result.put(String.format(PLUS, diff.get("key")), diff.get("value2"));
         }
         if (diff.get("status").equals("unchanged")) {
-            result.put(String.format(EMPTINESS, diff.get("key")), diff.get("oldValue"));
+            result.put(String.format(EMPTINESS, diff.get("key")), diff.get("value1"));
         }
         return result;
     }

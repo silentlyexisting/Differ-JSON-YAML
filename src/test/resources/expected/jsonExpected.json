@@ -1,9 +1,0 @@
-{
-  "diffs": [
-    {"key":"proxy","status":"deleted","oldValue":"123.234.53.22","newValue":"123.234.53.22"},
-    {"key":"host","status":"unchanged","oldValue":"hexlet.io","newValue":"hexlet.io"},
-    {"key":"follow","status":"deleted","oldValue":false,"newValue":false},
-    {"key":"timeout","status":"changed","oldValue":50,"newValue":20},
-    {"key":"verbose","status":"added","oldValue":true,"newValue":true}
-  ]
-}
