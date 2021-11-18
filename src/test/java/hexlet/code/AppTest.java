@@ -5,7 +5,6 @@ import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 
 class AppTest {
     private final Path flatJsonPath = Path.of(getFixturesPath("stylishExpected"));
